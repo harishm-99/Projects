@@ -1,5 +1,4 @@
-/* eslint-disable no-undef */
-import { useState } from 'react'
+import { useState } from 'react';
 import './App.css';
 
 function App() {
