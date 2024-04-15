@@ -10,7 +10,7 @@ export default function Accordation() {
 
     console.log(enableMultiSelection);
     function handleSingleClick(getCurrentId) {
-        setSelected(selected===getCurrentId?null:getCurrentId)
+        setSelected(selected === getCurrentId ? null : getCurrentId)
         console.log(getCurrentId);
     }
 
@@ -22,7 +22,7 @@ export default function Accordation() {
 
         if (findIndexOfCurrentId === -1) copyMultiple.push(getCurrentId)
         else copyMultiple.splice(findIndexOfCurrentId, 1)
-        
+
         setMultiple(copyMultiple);
     }
 
@@ -30,14 +30,14 @@ export default function Accordation() {
 
     return (
         <div className="wrapper">
-            <button onClick={()=>setEnableMultiSelection(!enableMultiSelection)}>Enable Multiselection</button>
+            <button onClick={() => setEnableMultiSelection(!enableMultiSelection)}>Enable Multiselection</button>
             <div className="accordation">
                 {
                     data && data.length > 0 ?
                         data.map(dataItem => (
                             <div className="item" key={dataItem.id}>
                                 <div className="title" onClick={enableMultiSelection ?
-                                    () => handleMultiSelection(dataItem.id):
+                                    () => handleMultiSelection(dataItem.id) :
                                     () => handleSingleClick(dataItem.id)}>
                                     <h3>{dataItem.question}</h3>
                                     <span>+</span>
@@ -45,15 +45,15 @@ export default function Accordation() {
                                 {
                                     enableMultiSelection ?
                                         multiple.indexOf(dataItem.id) !== -1 && <div>{dataItem.answer}</div> :
-                                        selected === dataItem.id && <div>{dataItem.answer }</div>
+                                        selected === dataItem.id && <div>{dataItem.answer}</div>
                                 }
 
                                 {/* {
                                     selected===dataItem.id || multiple.indexOf(dataItem.id)? dataItem.answer:null
                                 } */}
-                        </div>
-                    ))
-                    : <div>Data Not Found</div>
+                            </div>
+                        ))
+                        : <div>Data Not Found</div>
                 }
             </div>
         </div>
