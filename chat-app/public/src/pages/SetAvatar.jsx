@@ -28,21 +28,21 @@ function SetAvatar() {
     // const setProfilePicture = async () => {}
 
     useEffect(() => {
-        const fetchData = async ()=>{
+        const fetchData = async () => {
             const data = [];
-        for (let i = 0; i < 4; i++) {
-            const image = await axios.get(`${api}/${Math.round(Math.random() * 1000)}`);
-            const buffer = new Buffer(image.data);
-            data.push(buffer.toString("base64"));
-        }
-        setAvatars(data);
-        setIsLoading(false);
+            for (let i = 0; i < 4; i++) {
+                const image = await axios.get(`${api}/${Math.round(Math.random() * 1000)}`);
+                const buffer = new Buffer(image.data);
+                data.push(buffer.toString("base64"));
+            }
+            setAvatars(data);
+            setIsLoading(false);
         }
         fetchData();
     }, []);
 
     return (
-        <>      
+        <>
             <Container>
                 <div className="title-container">
                     <h1>
