@@ -1,3 +1,3 @@
 # projects
 
-Collection of Javascript, MERN-stack and DSA Projects
+Collection of Javascript, React & MERN-stack projects
