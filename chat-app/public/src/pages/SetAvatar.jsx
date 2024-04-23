@@ -56,8 +56,7 @@ function SetAvatar() {
                                 <div
                                     key={index}
                                     className={`avatar ${selectedAvatar === index ? "selected" : ""}`}>
-                                    <img
-                                        src={`data:image/svg+xml;base64,${avatar}`} alt="avatar"
+                                    <img src={`data:image/svg+xml;base64,${avatar}`} alt="avatar"
                                         onClick={() => setSelectedAvatar(index)}
                                     />
                                 </div>
@@ -100,11 +99,12 @@ const Container = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
             transition: 0.5s ease-in-out;
             img{
                 height: 6rem;
             }
-            .selected{
+            &.selected{
                 border: 0.4rem solid #4e0eff;
             }
         }
