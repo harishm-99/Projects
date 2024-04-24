@@ -64,6 +64,7 @@ function SetAvatar() {
                         })
                     }
                 </div>
+                <button className='submit-btn' onClick={setProfilePicture}></button>
             </Container>
             <ToastContainer />
         </>
