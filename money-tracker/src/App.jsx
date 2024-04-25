@@ -1,5 +1,7 @@
+import React from 'react';
 import { useState } from 'react';
 import './App.css';
+import { application } from 'express';
 
 function App() {
   const [name, setName] = useState(' ');
@@ -8,8 +10,16 @@ function App() {
 
   function addNewTransaction(ev) {
     ev.preventDefault();
-    const url = import.meta.env.REACT_APP_API_URL;
-    console.log(url);
+    const url = process.env.REACT_APP_API_URL+'/transaction';
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, description, time })
+    }).then(response => {
+      response.json().then(json => {
+        console.log('result', json);
+      });
+    });
   }
 
   return (
