@@ -1,21 +1,24 @@
 import React from 'react';
 import { useState } from 'react';
 import './App.css';
-import { application } from 'express';
 
 function App() {
   const [name, setName] = useState(' ');
-  const [time, setTime] = useState('2024-01-01T00:00');
+  const [datetime, setTime] = useState('2024-01-01T00:00');
   const [description, setDescription] = useState(' ');
 
   function addNewTransaction(ev) {
     ev.preventDefault();
-    const url = process.env.REACT_APP_API_URL+'/transaction';
+    const url = (import.meta.env.REACT_APP_API_URL || 'http://localhost:4000/api') + '/transaction';
+    console.log(import.meta.env.REACT_APP_API_URL);// Not working
+    console.log(url);
+
     fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, description, time })
-    }).then(response => {
+      body: JSON.stringify({ name, description, datetime })
+    })
+      .then(response => {
       response.json().then(json => {
         console.log('result', json);
       });
@@ -32,7 +35,7 @@ function App() {
             onChange={ev=>setName(ev.target.value)}
             placeholder={'+200 Samsung TV'} />
           <input type="datetime-local"
-            value={time}
+            value={datetime}
           onChange={ev => setTime(ev.target.value)}/>
         </div>
         <div className='description'>
@@ -79,4 +82,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
