@@ -4,7 +4,7 @@ import cors from 'cors';
 const Transaction = require('./models/transaction')
 const mongoose = require('mongoose');
 // import mongoose from 'mongoose';
-// import('dotenv').config();
+require('dotenv').config();
 
 const app = express();
 const PORT = 4000;
