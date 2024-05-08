@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [name, setName] = useState(' ');
+  const [name, setName] = useState('');
   const [dateTime, setDateTime] = useState('2024-01-01T00:00');
   const [description, setDescription] = useState(' ');
   const [transactions, setTransactions] = useState([]);
@@ -30,13 +30,14 @@ function App() {
     const operator = nameValue[0]; // Extract the first character
     const price = parseFloat(nameValue.substring(1)); // Extract the price after the operator
     const signedPrice = operator === '-' ? -price : price; // Apply the operator to the price
+    console.log(signedPrice);
 
     fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         price: signedPrice,
-        name: nameValue.substring(1),
+        name: nameValue.substring(nameValue.indexOf(' ') + 1), // Extracting name after the first space
         description,
         dateTime,
       })
@@ -54,7 +55,7 @@ function App() {
   let balance = 0;
 
   for (const transaction of transactions) {
-    balance += transaction.signedPrice; 
+    balance += transaction.price; 
   }
 
   balance = balance.toFixed(2);
