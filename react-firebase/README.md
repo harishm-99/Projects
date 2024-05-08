@@ -1,12 +1,20 @@
-# Getting Started with Create React App
+# React-Firebase-App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### You need a firebase account.
+
+Watch some tutorials on Youtube
+
+### Make a file firebase-config.js
+
+Paste the code originated from the firebase authentication process along with getAuth & initializeApp imported.
+
 ## Available Scripts
 
-In the project directory, you can run:
+Then in the project directory, you can run:
 
-### `npm start`
+### `npm start` after `npm install`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
