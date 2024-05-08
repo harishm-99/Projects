@@ -5,7 +5,7 @@ import loader from '../assets/loader.gif';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-import { SetAvatarRoute } from '../utils/APIRoutes';
+import { SetAvatarRoute, setAvatarRoute } from '../utils/APIRoutes';
 import { Buffer } from 'buffer';
 
 function SetAvatar() {
@@ -25,7 +25,36 @@ function SetAvatar() {
         theme: "dark",
     };
 
-    // const setProfilePicture = async () => {}
+    useEffect(() => {
+        const checkUser = async () => {
+            if (!localStorage.getItem('chat-app-user')) {
+                navigate('/login');
+            }
+        };
+
+        checkUser();
+    }, []);
+
+    const setProfilePicture = async (checker) => {
+        if (selectedAvatar === undefined) {
+            toast.error("Please select an avatar", toastOptions);
+        } else {
+            const user = await JSON.parse(localStorage.getItem("chat-app-user"));
+            const { data } = await axios.post(`${setAvatarRoute}/${user._id}`, {
+                image:avatars[selectedAvatar],
+            })
+
+            console.log(data);
+            if (data.isSet) {
+                user.isAvatarImageSet = true;
+                user.avatarImage = data.image;
+                localStorage.setItem('chat-app-user', JSON.stringify(user));
+                navigate('/')
+            } else {
+                toast.error("Error setting avatar. Please try again", toastOptions);
+            }
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,7 +72,12 @@ function SetAvatar() {
 
     return (
         <>
-            <Container>
+            {
+                isLoading ? <Container>
+                    <img src={loader}  alt="loader" className='loader' />
+                </Container> : (
+                        
+                    <Container>
                 <div className="title-container">
                     <h1>
                         Pick an avatar as your profile picture
@@ -54,8 +88,8 @@ function SetAvatar() {
                         avatars.map((avatar, index) => {
                             return (
                                 <div
-                                    key={index}
-                                    className={`avatar ${selectedAvatar === index ? "selected" : ""}`}>
+                                key={index}
+                                className={`avatar ${selectedAvatar === index ? "selected" : ""}`}>
                                     <img src={`data:image/svg+xml;base64,${avatar}`} alt="avatar"
                                         onClick={() => setSelectedAvatar(index)}
                                     />
@@ -64,8 +98,10 @@ function SetAvatar() {
                         })
                     }
                 </div>
-                <button className='submit-btn' onClick={setProfilePicture}></button>
+                <button className="submit-btn" onClick={setProfilePicture}>Set as Profile  </button>
             </Container>
+            )}
+            
             <ToastContainer />
         </>
     );
@@ -110,6 +146,21 @@ const Container = styled.div`
             }
         }
     }
+    .submit-btn{
+        background-color:#997af0;
+        color:white;
+        padding: 1rem 2rem;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 0.4rem;
+        font-size: 1rem;
+        text-transform: uppercase;
+        transition:0.5ms ease-in-out;
+        &:hover{
+                background-color: #4e0eff;
+        }
+}
 `;
 
 export default SetAvatar
