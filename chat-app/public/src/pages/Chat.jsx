@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { allUsersRoute } from '../utils/APIRoutes';
-import {Contacts} from '../components/Contacts';
+import Contacts from '../components/Contacts';
 
 function Chat() {
   const navigate = useNavigate();
