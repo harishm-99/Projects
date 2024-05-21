@@ -8,7 +8,7 @@ export default function Welcome({currentUser}) {
           <img src={Robot} alt="Robot" />
           <h1>
               Welcome, <span>{currentUser.username} !</span>
-          </h1>
+          </h1><br />
           <h3>
             Please select a chat to Start Messaging.  
           </h3>

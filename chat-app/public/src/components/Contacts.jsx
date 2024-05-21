@@ -76,7 +76,7 @@ const Container = styled.div`
     }
     h3{
       color: white;
-      text-transform: upper case;
+      text-transform: uppercase;
     }
   }
   .contacts{
