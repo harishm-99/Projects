@@ -14,11 +14,17 @@ export default function ChatInput() {
         setShowEmojiPicker(!showEmojiPicker);
     };
 
-    const handleEmojiClick = (event, emoji) => {
-        let message = msg;
-        message += emoji.emoji;
-        setMsg(message);
-    }
+    // const handleEmojiClick = (event, emoji) => {
+    //     console.log(emoji);
+    //     let message = msg;
+    //     message += emoji.emoji;
+    //     setMsg(message);
+    // };
+
+    const handleEmojiClick = (event, emojiObject) => {
+        console.log(emojiObject)
+        setMsg(msg + emojiObject.emoji);
+      };
 
   return (
       <Container>
@@ -31,7 +37,12 @@ export default function ChatInput() {
               </div>
           </div>
           <form className="input-container">
-              <input type="text" placeholder='type your message here' value={msg} onChange={(e) => setMsg(e.target.value)}/>
+              <input
+                  type="text"
+                  placeholder='type your message here'
+                  value={msg}
+                  onChange={(e) => setMsg(e.target.value)}
+              />
               <button className="submit">
                   <IoMdSend/>
               </button>
