@@ -5,7 +5,7 @@ import {IoMdSend} from 'react-icons/io'
 import { BsEmojiSmileFill } from 'react-icons/bs';
 
 
-export default function ChatInput() {
+export default function ChatInput({handleSendMsg}) {
 
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
     const [msg, setMsg] = useState('');
@@ -24,7 +24,15 @@ export default function ChatInput() {
     const handleEmojiClick = (event, emojiObject) => {
         console.log(emojiObject)
         setMsg(msg + emojiObject.emoji);
-      };
+    };
+    
+    const sendChat = (event) => {
+        event.preventDefault();
+        if (msg.length > 0) {
+            handleSendMsg(msg);
+            setMsg('');
+        }
+    }
 
   return (
       <Container>
@@ -36,7 +44,7 @@ export default function ChatInput() {
                   }
               </div>
           </div>
-          <form className="input-container">
+          <form className="input-container" onSubmit={(e) => sendChat(e)}>
               <input
                   type="text"
                   placeholder='type your message here'
@@ -74,7 +82,29 @@ const Container = styled.div`
                 position: absolute;
                 top: -460px;
                 left: -10px;
-                background-color: #9a86f3;
+                background-color: #080420;
+                box-shadow: 0 5px 10px #9a86f3;
+                border-color: #9a86f3;
+                .emoji-scroll-wrapper::webkit-scrollbar {
+                    background-color: #080420;
+                    width: 5px;
+                    &-thumb {
+                        background-color: #9186f3;
+                    }
+                }
+                .emoji-categories{
+                    button{
+                        filter: contrast(0);
+                    }
+                }
+                .emoji-search{
+                    background-color: transparent;
+                     border-color: #9a86f3;
+                }
+
+                .emoji-group: before{
+                    background-color: #080420;
+                }
             }
         }
     }
